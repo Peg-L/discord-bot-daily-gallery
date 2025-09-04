@@ -29,7 +29,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
     const channel = message.guild.channels.cache.get("1412955647820959764");
     if (channel) {
       await channel.send({
-        content: `來自 <@${message.author.id}> 的精選圖片：`,
+        content: `來自 ${message.author.username} 的精選圖片：`,
         files: [message.attachments.first().url],
       });
       await message.react("👍");

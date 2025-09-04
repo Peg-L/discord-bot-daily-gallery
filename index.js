@@ -7,7 +7,7 @@ const client = new Client({
     GatewayIntentBits.GuildMessageReactions,
   ],
 });
-const { token } = require("./config.json");
+const token = process.env.DISCORD_TOKEN;
 
 client.on("message", async (message) => {
   if (message.channel.id !== "703832130391769091") return;

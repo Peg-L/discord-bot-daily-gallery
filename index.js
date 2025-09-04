@@ -1,4 +1,6 @@
 const { Client, Events, GatewayIntentBits } = require("discord.js");
+const http = require("http");
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -8,6 +10,17 @@ const client = new Client({
   ],
 });
 const token = process.env.DISCORD_TOKEN;
+
+// 為 Render 建立簡單的 HTTP server
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Discord Bot is running!");
+});
+
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`HTTP server is running on port ${PORT}`);
+});
 
 client.on("message", async (message) => {
   if (message.channel.id !== "1388777841033875507") return;

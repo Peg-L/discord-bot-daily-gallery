@@ -22,14 +22,12 @@ server.listen(PORT, () => {
   console.log(`HTTP server is running on port ${PORT}`);
 });
 
-client.on("messageCreate", async (message) => {
-  if (message.channel.id !== "1413161119371100192") return;
-  if (message.author.bot) return;
-
-  message.react("⭐");
-});
+// 移除自動加⭐功能，改為只監聽其他使用者的⭐反應
 
 client.on("messageReactionAdd", async (reaction, user) => {
+  // 忽略 bot 自己加的反應
+  if (user.bot) return;
+
   const message = reaction.message;
   // 只處理⭐反應，且訊息有圖片附件，且尚未被bot加過👍
   if (

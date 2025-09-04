@@ -10,7 +10,7 @@ const client = new Client({
 const token = process.env.DISCORD_TOKEN;
 
 client.on("message", async (message) => {
-  if (message.channel.id !== "703832130391769091") return;
+  if (message.channel.id !== "1388777841033875507") return;
   if (message.author.bot) return;
 
   message.react("⭐");
@@ -26,7 +26,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
       (re) => re.emoji.name === "👍" && re.users.cache.has(client.user.id)
     )
   ) {
-    const channel = message.guild.channels.cache.get("1106463683426648114");
+    const channel = message.guild.channels.cache.get("1412955647820959764");
     if (channel) {
       await channel.send({
         content: `來自 <@${message.author.id}> 的精選圖片：`,
@@ -39,12 +39,6 @@ client.on("messageReactionAdd", async (reaction, user) => {
 
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
-  const channel = readyClient.channels.cache.get("703832130391769091");
-  if (channel) {
-    channel.send("Bot 已成功上線！");
-  } else {
-    console.log("找不到指定的頻道");
-  }
 });
 
 client.login(token);

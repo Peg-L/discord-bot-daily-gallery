@@ -22,8 +22,8 @@ server.listen(PORT, () => {
   console.log(`HTTP server is running on port ${PORT}`);
 });
 
-client.on("message", async (message) => {
-  if (message.channel.id !== "1388777841033875507") return;
+client.on("messageCreate", async (message) => {
+  if (message.channel.id !== "1413161119371100192") return;
   if (message.author.bot) return;
 
   message.react("⭐");
@@ -39,7 +39,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
       (re) => re.emoji.name === "👍" && re.users.cache.has(client.user.id)
     )
   ) {
-    const channel = message.guild.channels.cache.get("1412955647820959764");
+    const channel = message.guild.channels.cache.get("1413160967596150855");
     if (channel) {
       await channel.send({
         content: `來自 ${message.author.username} 的精選圖片：`,
@@ -53,5 +53,8 @@ client.on("messageReactionAdd", async (reaction, user) => {
 client.once(Events.ClientReady, (readyClient) => {
   console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
+
+// 增加錯誤處理
+client.on("error", console.error);
 
 client.login(token);

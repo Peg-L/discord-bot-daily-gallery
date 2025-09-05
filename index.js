@@ -1,6 +1,10 @@
 const { Client, Events, GatewayIntentBits } = require("discord.js");
 const http = require("http");
 
+// 頻道 ID 設定
+const SOURCE_CHANNEL_ID = "1388777841033875507"; // 來源頻道
+const TARGET_CHANNEL_ID = "1412955647820959764"; // 目標頻道
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -29,6 +33,10 @@ client.on("messageReactionAdd", async (reaction, user) => {
   if (user.bot) return;
 
   const message = reaction.message;
+
+  // 只處理特定頻道的⭐反應
+  if (message.channel.id !== SOURCE_CHANNEL_ID) return;
+
   // 只處理⭐反應，且訊息有圖片附件，且尚未被bot加過👍
   if (
     reaction.emoji.name === "⭐" &&
@@ -37,7 +45,7 @@ client.on("messageReactionAdd", async (reaction, user) => {
       (re) => re.emoji.name === "👍" && re.users.cache.has(client.user.id)
     )
   ) {
-    const channel = message.guild.channels.cache.get("1413160967596150855");
+    const channel = message.guild.channels.cache.get(TARGET_CHANNEL_ID);
     if (channel) {
       await channel.send({
         content: `來自 ${message.author.username} 的精選圖片：`,
